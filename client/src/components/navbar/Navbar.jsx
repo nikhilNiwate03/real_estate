@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./navbar.scss";
-// import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   const user = false;
   return (
@@ -19,22 +22,24 @@ const Navbar = () => {
         <a href="/">Agents</a>
       </div>
       <div className="right">
-        {user ? (
+        {currentUser ? (
           <div className="user">
-            <img
-              src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt=""
-            />
-            <span>John Doe</span>
-            {/* <Link to="/profile" className="profile">
-              <div className="notification">3</div>
+            {currentUser.avatar ? (
+              <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
+            ) : (
+              <FaUserCircle size={30} style={{ marginRight: "10px" }} />
+            )}
+
+            <span>{currentUser.username}</span>
+            <Link to="/profile" className="profile">
+              {/* {number > 0 && <div className="notification">{number}</div>} */}
               <span>Profile</span>
-            </Link> */}
+            </Link>
           </div>
         ) : (
           <>
-            <a href="/">Sign in</a>
-            <a href="/" className="register">
+            <a href="/login">Sign in</a>
+            <a href="/register" className="register">
               Sign up
             </a>
           </>
