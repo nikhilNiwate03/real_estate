@@ -2,7 +2,7 @@ import React from "react";
 import { singlePostData, userData } from "../../lib/dummyData";
 import Slider from "../../components/slider/Slider";
 import "./singlePage.scss";
-import Map from "../../../react-estate-ui/src/components/map/Map";
+import Map from "../../components/map/Map";
 
 const SinglePage = () => {
   return (

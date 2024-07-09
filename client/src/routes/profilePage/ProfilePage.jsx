@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import List from "../../../react-estate-ui/src/components/list/List";
 import Chat from "../../components/chat/Chat";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { FaUserCircle } from "react-icons/fa";
+import List from "../../components/list/List";
 
 const ProfilePage = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import "./listPage.scss";
 import { listData } from "../../lib/dummyData";
 import Filter from "../../components/filter/Filter";
 import Card from "../../components/card/Card";
-import Map from "../../../react-estate-ui/src/components/map/Map";
+import Map from "../../components/map/Map";
 
 const ListPage = () => {
   const data = listData;
