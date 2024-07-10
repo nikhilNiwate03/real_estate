@@ -4,10 +4,12 @@ import { AuthContext } from "../../context/AuthContext";
 import { FaUserCircle } from "react-icons/fa";
 import apiRequest from "../../lib/apiRequest";
 import { useNavigate } from "react-router-dom";
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
 
 function ProfileUpdatePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
   const [error, setError] = useState();
+  const [avatar, setAvatar] = useState(currentUser.avatar);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,6 +23,7 @@ function ProfileUpdatePage() {
         username,
         email,
         password,
+        avatar,
       });
       updateUser(res.data);
       navigate("/profile");
@@ -29,6 +32,8 @@ function ProfileUpdatePage() {
       setError(error.response.data.message);
     }
   };
+
+  console.log(avatar);
 
   return (
     <div className="profileUpdatePage">
@@ -62,11 +67,21 @@ function ProfileUpdatePage() {
         </form>
       </div>
       <div className="sideContainer">
-        {currentUser.avatar ? (
-          <img src={currentUser.avatar} alt="" className="avatar" />
+        {avatar ? (
+          <img src={avatar} alt="profile" className="avatar" />
         ) : (
           <FaUserCircle size={150} opacity={0.3} />
         )}
+        <UploadWidget
+          uwConfig={{
+            cloudName: "dgv5c3dfz",
+            uploadPreset: "estate",
+            multiple: false,
+            maxImageFileSize: 2000000,
+            folder: "avatars",
+          }}
+          setState={setAvatar}
+        />
       </div>
     </div>
   );
