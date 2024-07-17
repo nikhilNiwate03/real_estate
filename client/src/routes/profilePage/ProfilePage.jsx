@@ -1,14 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import Chat from "../../components/chat/Chat";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
-import { Link, useNavigate } from "react-router-dom";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { FaUserCircle } from "react-icons/fa";
 import List from "../../components/list/List";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const data = useLoaderData();
   const { currentUser, updateUser } = useContext(AuthContext);
 
   const handleLogout = async () => {
@@ -55,11 +56,19 @@ const ProfilePage = () => {
                 <button>Create New Post</button>
               </Link>
             </div>
-            <List />
+            <Suspense fallback={<p>Loading...</p>}>
+              <Await
+                resolve={data.postResponse}
+                errorElement={<p>Error loading posts!</p>}
+              >
+                {(postResponse) => <List posts={postResponse.data.userPosts} />}
+              </Await>
+            </Suspense>
+            {/* <List /> */}
             <div className="title">
               <h1>Saved List</h1>
             </div>
-            <List />
+            {/* <List /> */}
           </div>
         </div>
         <div className="chatContainer">
